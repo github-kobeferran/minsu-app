@@ -24,7 +24,7 @@ class UpdateJobRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'unique:jobs,name,' . $this->route('job')->id,
         ];
     }
 }
