@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,8 +18,10 @@ class JobController extends Controller
     public function index()
     {
         abort_if(!auth()->user()->can('access job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        return Job::all()->paginate(10);
+        $jobs = Job::paginate(10);
+        return view('jobs.index', compact(['jobs']));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +31,6 @@ class JobController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-
         return view('jobs.create');
     }
 
@@ -41,9 +43,19 @@ class JobController extends Controller
     public function store(StoreJobRequest $request)
     {
         abort_if(!auth()->user()->can('store job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        Job::create($request->validated());
 
-        return view('jobs.index');
+        $job = Job::create($request->validated());
+        if ($request->has('photo')) {
+            $job->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+
+        $jobs = Job::paginate(10);
+
+        session()->flash('success', 'Record added');
+
+        return redirect()->route('jobs.index')->with([
+            'jobs' => $jobs,
+        ]);
     }
 
     /**
@@ -52,9 +64,12 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Job $job)
     {
-        //
+        abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return redirect()->route('jobs.edit')->with([
+            'job' => $job
+        ]);
     }
 
     /**
@@ -63,9 +78,10 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Job $job)
     {
-        //
+        abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('jobs.edit', compact(['job']));
     }
 
     /**
@@ -75,9 +91,24 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateJobRequest $request, Job $job)
     {
-        //
+        abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        $job->update($request->validated());
+
+        if ($request->has('photo')) {
+            $job->clearMediaCollection('photos');
+            $job->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+
+        session()->flash('success', 'Record updated');
+
+        $jobs = Job::paginate(10);
+
+        return redirect()->route('jobs.index')->with([
+            'jobs' => $jobs,
+        ]);
+
     }
 
     /**
@@ -88,6 +119,22 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort_if(!auth()->user()->can('destroy job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        Job::destroy($id);
+        return view('jobs.index')->with('flas-message', 'Delete success');
+    }
+
+    public function delete($id)
+    {
+        abort_if(!auth()->user()->can('destroy job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+
+        Job::destroy($id);
+        $jobs = Job::paginate(10);
+
+        session()->flash('primary', 'Record deleted');
+
+        return redirect()->route('jobs.index')->with([
+            'jobs' => $jobs,
+        ]);
     }
 }

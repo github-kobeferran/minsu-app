@@ -28,7 +28,12 @@ class StoreJobRequest extends FormRequest
             'title' => 'required',
             'company' => 'required',
             'descript' => 'required',
-            'location' => 'required'
+            'location' => 'required',
+            'website' => 'required',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

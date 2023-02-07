@@ -4,11 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 ">
-           <form action="{{route('jobs.store')}}" method="POST" enctype="multipart/form-data">
+           <form action="{{route('jobs.update', $job['id'])}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('patch')
                <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Title</label>
-                    <input name="title" value="{{old('title')}}" type="text" class="form-control @error('title') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Title">
+                    <input name="title" value="{{$job['title']}}" type="text" class="form-control @error('title') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Title">
                     @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -17,7 +18,7 @@
                </div>
                <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Company Name</label>
-                    <input name="company" value="{{old('company')}}" type="text" class="form-control @error('company') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Company Name">
+                    <input name="company" value="{{$job['company']}}" type="text" class="form-control @error('company') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Company Name">
                     @error('company')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -26,7 +27,7 @@
                </div>
                <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Location</label>
-                    <input name="location" value="{{old('location')}}" type="text" class="form-control @error('location') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Location">
+                    <input name="location" value="{{$job['location']}}" type="text" class="form-control @error('location') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Location">
                     @error('location')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Website</label>
-                    <input name="website" value="{{old('website')}}" type="text" class="form-control @error('website') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Website">
+                    <input name="website" value="{{$job['website']}}" type="text" class="form-control @error('website') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Website">
                     @error('website')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -45,10 +46,11 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Tags</label>
                     <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" multiple aria-label="multiple select example">
-                        <option selected>Open this select menu</option>
-                        <option value="urgent">Urgent</option>
-                        <option value="example1">Example1</option>
-                        <option value="example12">Example12</option>
+
+                        <option @if(is_null($job['tags'])) selected @endif>Open this select menu</option>
+                        <option @if(in_array("urgent", $job['tags'])) selected @endif value="urgent">Urgent</option>
+                        <option @if(in_array("example1", $job['tags'])) selected @endif value="example1">Example1</option>
+                        <option @if(in_array("example12", $job['tags'])) selected @endif value="example12">Example12</option>
                     </select>
                     @error('tags')
                         <span class="invalid-feedback" role="alert">
@@ -58,7 +60,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input name="email" value="{{old('email')}}" type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name@example.com">
+                    <input name="email" value="{{$job['email']}}" type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name@example.com">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,7 +70,7 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Job Description</label>
                     <textarea name="descript" class="form-control @error('descript') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="Job Description">
-                        {{old('descript')}}
+                        {{$job['descript']}}
                     </textarea>
                        @error('descript')
                             <span class="invalid-feedback" role="alert">
@@ -76,8 +78,19 @@
                             </span>
                         @enderror
                 </div>
+
+                @if (!is_null($job['media_url']))
+                    <img src="{{$job['media_url']}}" alt="" class="img-thumbnail">
+                @endif
+
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Photo</label>
+                    <label for="exampleFormControlInput1" class="form-label">
+                        @if (!is_null($job['media_url']))
+                            Change Photo
+                        @else
+                            Photo
+                        @endif
+                    </label>
                     <input name="photo"  type="file"  id="">
                     @error('photo')
                         <span class="invalid-feedback" role="alert">

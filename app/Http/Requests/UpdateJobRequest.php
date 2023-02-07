@@ -13,7 +13,7 @@ class UpdateJobRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('update job');
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdateJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'unique:jobs,name,' . $this->route('job')->id,
+            'email' => 'required|email',
+            'title' => 'required',
+            'company' => 'required',
+            'descript' => 'required',
+            'location' => 'required',
+            'website' => 'required',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }
