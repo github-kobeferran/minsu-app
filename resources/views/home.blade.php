@@ -15,6 +15,19 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col">
+                    @if (!auth()->user()->approved)
+                        Please wait for admin approval to access site
+                    @else
+                        Welcome
+                    @endif
                 </div>
             </div>
         </div>

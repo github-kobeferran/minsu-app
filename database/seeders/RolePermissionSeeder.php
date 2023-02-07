@@ -61,14 +61,22 @@ class RolePermissionSeeder extends Seeder
         // ASSIGN admin ROLE
         $user = User::where('email', 'admin@admin.com')->first();
         $user->assignRole('admin');
+        $user->approved = 1;
+        $user->save();
 
         // ASSIGN orgadmin ROLE
         $user = User::where('email', 'employer@admin.com')->first();
         $user->assignRole('employer');
+        $user->approved = 1;
+        $user->save();
+
 
         // ASSIGN orgadmin ROLE
         $user = User::where('email', 'alumni@admin.com')->first();
         $user->assignRole('alumni');
+
+        $user->approved = 1;
+        $user->save();
 
     }
 }

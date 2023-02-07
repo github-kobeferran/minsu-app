@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,14 @@ Route::get('/', function () {
 });
 
 Route::get('/email/verify', function () {
+    $user = Auth::user();
+
+    if ($user->hasVerifiedEmail()) {
+        return redirect()->route('home');
+    }
+
     return view('auth.verify-email');
+
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -40,9 +48,12 @@ Route::post('/email/verification-notification', function (Request $request) {
 Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified',]);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::resource('/jobs', JobController::class);
 
+    Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
+        Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
+    });
 });
