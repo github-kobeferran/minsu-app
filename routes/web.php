@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -49,12 +50,12 @@ Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified',]);
-
 Route::middleware(['auth', 'verified', 'approved'])->group(function () {
+    Route::resource('/announcements', AnnouncementController::class);
+
     Route::resource('/jobs', JobController::class);
     Route::get('/jobs/{job}', [JobController::class, 'delete'])->name('jobs.delete');
-
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
-        Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
+    Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
     });
 });
