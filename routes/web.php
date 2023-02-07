@@ -47,11 +47,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Auth::routes();
 
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified',]);
 
 Route::middleware(['auth', 'verified', 'approved'])->group(function () {
-    Route::resource('/jobs', JobController::class);
+    Route::resource('jobs', JobController::class);
     Route::get('/jobs/{job}', [JobController::class, 'delete'])->name('jobs.delete');
 
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
