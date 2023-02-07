@@ -22,6 +22,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'home_address',
+        'word_address',
+        'age',
+        'id_number',
+        
     ];
 
     /**
@@ -41,25 +46,5 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'approved' => 'boolean',
     ];
-
-    protected $appends = [
-        'created_at_formatted',
-    ];
-
-    public function getCreatedAtFormattedAttribute()
-    {
-        return $this->created_at->format('M d, Y');
-    }
-
-    /**
-     * Determine if the user has verified their email address.
-     *
-     * @return bool
-     */
-    public function hasVerifiedEmail()
-    {
-        return !is_null($this->email_verified_at);
-    }
 }

@@ -20,7 +20,6 @@
                 <div class="mb-3">
                     <input type="submit" class="btn btn-submit"/>
                 </div>
-
            </form>
         </div>
     </div>

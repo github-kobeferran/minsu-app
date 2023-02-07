@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AnnouncementController extends Controller
 {
@@ -13,7 +15,9 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        //
+        abort_if(!auth()->user()->can('access announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        $announcement = Announcement::paginate(10);
+        return view('announcement.index', compact(['announcement']));
     }
 
     /**
@@ -23,7 +27,8 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(!auth()->user()->can('create announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('announcement.create');
     }
 
     /**
@@ -34,7 +39,20 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort_if(!auth()->user()->can('store announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+
+        $job = Job::create($request->validated());
+        if ($request->has('photo')) {
+            $job->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+
+        $jobs = Job::paginate(10);
+
+        session()->flash('success', 'Record added');
+
+        return redirect()->route('jobs.index')->with([
+            'jobs' => $jobs,
+        ]);
     }
 
     /**
