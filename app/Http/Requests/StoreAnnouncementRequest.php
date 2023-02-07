@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreJobRequest extends FormRequest
+class StoreAnnouncementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreJobRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('store job');
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class StoreJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'title' => 'required',
-            'company' => 'required',
-            'descript' => 'required',
-            'location' => 'required'
+            //
         ];
     }
 }
