@@ -9,10 +9,9 @@
                 <div class="col">
                     <div class="d-flex justify-content-end">
                         <div class="mb-4">
-                            <a class="btn btn-primary" href="{{ url()->previous() }}">Back</a>
+                            <a class="btn btn-primary" href="{{  route('jobs.index') }}">Back</a>
                         </div>
                     </div>
-
                     @isset($job)
                         <table class="table table-bordered">
                             <tr>
@@ -40,6 +39,9 @@
                                 </td>
                             </tr>
                         </table>
+                        <div class="mb-4">
+                            <a class="btn btn-primary" href="{{ route('jobs.apply', $job->id)}}">Apply</a>
+                        </div>
                     @else
                         No data found
                     @endisset

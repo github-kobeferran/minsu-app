@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJobApply;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
@@ -60,6 +61,7 @@ class JobController extends Controller
         ]);
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -70,6 +72,14 @@ class JobController extends Controller
     {
         abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
         return view('jobs.view', ['job' => $job,]);
+    }
+
+    public function goToJobApply(Job $job)
+    {
+        abort_if(!auth()->user()->can('apply job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('jobs.apply', [
+            'job' => $job,
+        ]);
     }
 
     /**

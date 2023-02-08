@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\UserController;
+use App\Models\SocialMedia;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +56,13 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::get('/delete/announcement/{announcement}', [AnnouncementController::class, 'delete'])->name('announcements.delete');
 
     Route::resource('/jobs', JobController::class);
+    Route::get('/jobs/{job}/apply', [JobController::class, 'goToJobApply'])->name('jobs.apply');
     Route::get('/delete/job/{job}', [JobController::class, 'delete'])->name('jobs.delete');
+
+    Route::resource('/apply', ApplyController::class);
+
+    Route::resource('/socialmedia', SocialMediaController::class);
+
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
         Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
         Route::get('approve-user/{user}', [UserController::class, 'approveUser'])->name('approve-user');

@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <ul class="list-group mb-4">
+            <div class="jumbotron jumbotron-fluid bg-success text-white">
+                <div class="container">
+                  <h1 class="display-4 text-center">Welcome to our website!</h1>
+                  <p class="lead text-center">Discover the latest job opportunities and announcements.</p>
+                  <div class="d-flex justify-content-center mt-4">
                     @if (auth()->user()->hasRole('admin'))
-                        <li class="list-group-item">
-                            <a href="{{ route('jobs.create') }}">Create Job</a>
-                        </li>
+                    <a href="{{ route('jobs.create') }}" class="btn btn-outline-light mx-3">Create Job</a>
+                    <a href="{{ route('jobs.index') }}" class="btn btn-outline-light mx-3">Job Offers</a>
+                    <a href="{{ route('admin.pending-users') }}" class="btn btn-outline-light mx-3">View Pending Users</a>
+                    <a href="{{ route('announcements.create') }}" class="btn btn-outline-light mx-3">Create Announcement</a>
+                    <a href="{{ route('announcements.create') }}" class="btn btn-outline-light mx-3">Announcements </a>
+                    {{--<a href="{{ route('socialmedia.create') }}" class="btn btn-outline-light mx-3">AlumnConnect </a>--}}
                     @endif
-                    <li class="list-group-item">
-                        <a href="{{ route('admin.pending-users') }}">View Pending Users</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ route('announcements.create') }}">Create Announcement</a>
-                    </li>
-                </ul>
-
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-8">
+                
                 <div class="card">
                     <div class="card-header">{{ __('Dashboard') }}</div>
 

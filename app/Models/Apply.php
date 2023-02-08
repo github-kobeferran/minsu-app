@@ -9,31 +9,28 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class SocialMedia extends Model implements HasMedia
+class Apply extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
-    protected $table = 'socialmedia';
+
+    protected $table = 'apply';
+
     protected $fillable = [
+        'name',
+        'email',
+        'number',
         'user_id',
-        'post',
+        'job_id',
     ];
 
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued();
-    }
-
-    public function getCreatedAtFormattedAttribute()
-    {
-        return $this->created_at->format('M d, Y');
-    }
+    protected $appends = [
+        'created_at_formatted',
+        'media_url',
+    ];
 
     public function getMediaUrlAttribute()
     {
-        $media = $this->getFirstMedia('photos');
+        $media = $this->getFirstMedia('resume');
 
         if ($media) {
             return $media->getUrl();
