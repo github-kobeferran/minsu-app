@@ -14,6 +14,15 @@ class Announcement extends Model  implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'tags',
+        'descript',
+    ];
+
+
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this
