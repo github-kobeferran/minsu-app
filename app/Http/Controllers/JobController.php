@@ -18,7 +18,9 @@ class JobController extends Controller
     public function index()
     {
         abort_if(!auth()->user()->can('access job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        $jobs = Job::paginate(10);
+        $jobs = Job::when(auth()->user()->hasRole('employer'), function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->paginate(10);
         return view('jobs.index', compact(['jobs']));
     }
 
@@ -93,22 +95,8 @@ class JobController extends Controller
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
-        abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        $job->update($request->validated());
 
-        if ($request->has('photo')) {
-            $job->clearMediaCollection('photos');
-            $job->addMediaFromRequest('photo')->toMediaCollection('photos');
-        }
 
-        session()->flash('success', 'Record updated');
-
-        $jobs = Job::paginate(10);
-
-        return redirect()->route('jobs.index')->with([
-            'jobs' => $jobs,
-        ]);
-        
     }
 
     /**

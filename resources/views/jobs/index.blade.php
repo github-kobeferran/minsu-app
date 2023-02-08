@@ -37,6 +37,9 @@
                         <thead>
                             <tr>
                                 <th>Created at</th>
+                                @if(auth()->user()->hasRole('admin'))
+                                    <th>Created by</th>
+                                @endif
                                 <th>Name</th>
                                 <th>Photo</th>
                                 <th>Action</th>
@@ -46,6 +49,9 @@
                             @foreach ($jobs as $job)
                                 <tr>
                                     <td>{{$job->created_at_formatted}}</td>
+                                    @if(auth()->user()->hasRole('admin'))
+                                        <td>{{$job->user->name}}</td>
+                                    @endif
                                     <td>
                                         @if (is_null($job->media_url))
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" alt="" class="img-thumbnail">

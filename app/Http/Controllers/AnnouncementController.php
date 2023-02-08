@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAnnouncementRequest;
+use App\Http\Requests\UpdateAnnouncementRequest;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -73,9 +74,11 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Announcement $announcement)
     {
-        //
+        return view('announcement.edit', [
+            'announcement' => $announcement,
+        ]);
     }
 
     /**
@@ -85,9 +88,24 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
     {
-        //
+        abort_if(!auth()->user()->can('update announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        $announcement->update($request->validated());
+
+        if ($request->has('photo')) {
+            $announcement->clearMediaCollection('photos');
+            $announcement->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+
+        session()->flash('success', 'Record updated');
+
+        $announcements = Announcement::paginate(10);
+
+        return redirect()->route('announcements.index')->with([
+            'announcements' => $announcements,
+        ]);
+
     }
 
     /**
