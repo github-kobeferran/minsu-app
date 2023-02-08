@@ -55,5 +55,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::get('/jobs/{job}', [JobController::class, 'delete'])->name('jobs.delete');
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
         Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
+        Route::get('approve-user/{user}', [UserController::class, 'approveUser'])->name('approve-user');
+        Route::get('decline-user/{user}', [UserController::class, 'declineUser'])->name('decline-user');
     });
 });

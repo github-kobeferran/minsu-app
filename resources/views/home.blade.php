@@ -4,7 +4,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <a href="{{ route('jobs.create') }}">Create Job</a>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+
+                    <a href="{{ route('jobs.create') }}">Create Job</a>
+                </li>
+                <li class="list-group-item">
+
+                    <a href="{{ route('admin.pending-users') }}">View Pending Users</a>
+                </li>
+            </ul>
+
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 

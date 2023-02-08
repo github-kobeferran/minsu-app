@@ -8,10 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'word_address',
         'age',
         'id_number',
-        
+
     ];
 
     /**
@@ -47,4 +51,34 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+        'created_at_formatted',
+        'media_url',
+    ];
+
+    public function getCreatedAtFormattedAttribute()
+    {
+        return $this->created_at->format('M d, Y');
+    }
+
+    public function getMediaUrlAttribute()
+    {
+        $media = $this->getFirstMedia('photos');
+
+        if ($media) {
+            return $media->getUrl();
+        }
+
+        return null;
+    }
+
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
 }
