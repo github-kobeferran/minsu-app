@@ -5,17 +5,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <ul class="list-group mb-4">
-                    <li class="list-group-item">
-                        <a href="{{ route('jobs.create') }}">Create Job</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ route('announcements.create') }}">Create Announcement</a>
-                    </li>
+                    @if (auth()->user()->hasRole('admin'))
+                        <li class="list-group-item">
+                            <a href="{{ route('jobs.create') }}">Create Job</a>
+                        </li>
+                    @endif
                     <li class="list-group-item">
                         <a href="{{ route('admin.pending-users') }}">View Pending Users</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ route('jobs.create') }}">Create Job</a>
+                        <a href="{{ route('announcements.create') }}">Create Announcement</a>
                     </li>
                 </ul>
 

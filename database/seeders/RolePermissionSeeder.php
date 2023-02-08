@@ -25,7 +25,7 @@ class RolePermissionSeeder extends Seeder
                 'store job',
                 'update job',
                 'create job',
-                
+
                 'access announcement',
                 'destroy announcement',
                 'edit announcement',
