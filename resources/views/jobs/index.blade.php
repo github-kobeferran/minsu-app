@@ -63,6 +63,7 @@
                                     </td>
                                     <td>{{$job->title}}</td>
                                     <td class="d-flex justify-content-between">
+                                        <a href="{{route('jobs.show', $job->id)}}" class="btn btn-light bordered">View</a>
                                         <a href="{{route('jobs.edit', $job->id)}}" class="btn btn-primary">Edit</a>
                                         <a href="{{route('jobs.delete', $job->id)}}" class="btn btn-danger">Delete</a>
                                     </td>

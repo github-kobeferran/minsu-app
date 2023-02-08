@@ -19,7 +19,7 @@ class AnnouncementController extends Controller
     {
         abort_if(!auth()->user()->can('access announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
         $announcements = Announcement::paginate(10);
-        return view('announcement.index', compact(['announcements']));
+        return view('announcements.index', compact(['announcements']));
     }
 
     /**
@@ -30,7 +30,7 @@ class AnnouncementController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        return view('announcement.create');
+        return view('announcements.create');
     }
 
     /**
@@ -63,9 +63,13 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Announcement $announcement)
     {
-        //
+        abort_if(!auth()->user()->can('show announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('announcements.view', [
+            'announcement' => $announcement,
+        ]);
+
     }
 
     /**
@@ -76,7 +80,7 @@ class AnnouncementController extends Controller
      */
     public function edit(Announcement $announcement)
     {
-        return view('announcement.edit', [
+        return view('announcements.edit', [
             'announcement' => $announcement,
         ]);
     }

@@ -25,6 +25,7 @@ class RolePermissionSeeder extends Seeder
                 'store job',
                 'update job',
                 'create job',
+                'show job',
 
                 'access announcement',
                 'destroy announcement',
@@ -32,7 +33,7 @@ class RolePermissionSeeder extends Seeder
                 'store announcement',
                 'update announcement',
                 'create announcement',
-
+                'show announcement',
             ],
             'employer' => [
                 'access job',
@@ -41,6 +42,7 @@ class RolePermissionSeeder extends Seeder
                 'store job',
                 'update job',
                 'create job',
+                'show job',
             ],
             'alumni' => [
                 'apply job',

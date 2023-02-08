@@ -56,7 +56,8 @@
 
                                     </td>
                                     <td>{{$announcement->title}}</td>
-                                    <td class="d-flex justify-content-between">
+                                    <td class="d-flex justify-content-center align-content-between ">
+                                        <a href="{{route('announcements.show', $announcement->id)}}" class="btn btn-light border">View</a>
                                         <a href="{{route('announcements.edit', $announcement->id)}}" class="btn btn-primary">Edit</a>
                                         <a href="{{route('announcements.delete', $announcement->id)}}" class="btn btn-danger">Delete</a>
                                     </td>

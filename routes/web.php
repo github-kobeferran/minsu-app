@@ -50,10 +50,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified',]);
 Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::resource('/announcements', AnnouncementController::class);
-    Route::get('/announcements/{announcement}', [AnnouncementController::class, 'delete'])->name('announcements.delete');
+    Route::get('/delete/announcement/{announcement}', [AnnouncementController::class, 'delete'])->name('announcements.delete');
 
     Route::resource('/jobs', JobController::class);
-    Route::get('/jobs/{job}', [JobController::class, 'delete'])->name('jobs.delete');
+    Route::get('/delete/job/{job}', [JobController::class, 'delete'])->name('jobs.delete');
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
         Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
         Route::get('approve-user/{user}', [UserController::class, 'approveUser'])->name('approve-user');
