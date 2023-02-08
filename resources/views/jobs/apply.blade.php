@@ -14,7 +14,7 @@
                 <input type="hidden" name="job_id" value="{{$job->id}}">
                <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Name</label>
-                    <input name="name" value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name">
+                    <input name="name" value="{{auth()->user()->name}}" type="text" class="form-control @error('name') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
                </div>
                <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Contact Number</label>
-                    <input name="number" value="{{old('number')}}" type="text" class="form-control @error('number') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="number Name">
+                    <input name="number" value="Contact Number" type="text" class="form-control @error('number') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="number Name">
                     @error('number')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input name="email" value="{{old('email')}}" type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name@example.com">
+                    <input name="email" value="{{auth()->user()->email}}" type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1"  placeholder="name@example.com">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -15,11 +15,9 @@
   <body>
     <div class="container my-5 text-center">
       <img src="http://minsu.edu.ph/template/images/logo.png" alt="Logo" />
-      <h3 class="my-3">Welcome</h3>
+      <h3 class="my-3">Welcome to Mindoro State University</h3>
       <h1 class="my-3">MinSU-AlumnConnect</h1>
-      <p>
-        This is a simple Bootstrap welcome page.
-      </p>
+
       <div class="my-3">
          @if (Route::has('login'))
           @auth

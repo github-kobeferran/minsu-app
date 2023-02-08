@@ -28,6 +28,9 @@ class RolePermissionSeeder extends Seeder
                 'show job',
                 'apply job',
 
+                'update user',
+                'show user',
+
 
                 'access announcement',
                 'destroy announcement',
@@ -54,7 +57,15 @@ class RolePermissionSeeder extends Seeder
             ],
             'alumni' => [
                 'apply job',
-                
+                'show job',
+                'access job',
+
+                'access announcement',
+                'show announcement',
+
+                'update user',
+                'show user',
+
                 'store socialmedia',
                 'update socialmedia',
                 'destroy socialmedia',

@@ -40,8 +40,8 @@
                                 @if(auth()->user()->hasRole('admin'))
                                     <th>Created by</th>
                                 @endif
-                                <th>Name</th>
                                 <th>Photo</th>
+                                <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

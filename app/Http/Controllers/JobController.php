@@ -70,7 +70,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        abort_if(!auth()->user()->can('edit job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        abort_if(!auth()->user()->can('access job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
         return view('jobs.view', ['job' => $job,]);
     }
 

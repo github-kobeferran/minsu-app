@@ -37,8 +37,8 @@
                         <thead>
                             <tr>
                                 <th>Created at</th>
-                                <th>Name</th>
                                 <th>Photo</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

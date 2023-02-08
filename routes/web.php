@@ -63,6 +63,8 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function () {
 
     Route::resource('/socialmedia', SocialMediaController::class);
 
+    Route::resource('/userprofile', UserController::class);
+
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
         Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
         Route::get('approve-user/{user}', [UserController::class, 'approveUser'])->name('approve-user');

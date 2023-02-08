@@ -53,6 +53,17 @@ class UserController extends Controller
         ]);
     }
 
+    public function edit(User $user)
+    {
+        abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('userprofile.edit', compact(['user']));
+    }
+
+    public function index()
+    {
+        abort_if(!auth()->user()->can('show user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('userprofile.index');
+    }
     /**
      * FOR EMPLOYER
      */

@@ -20,6 +20,12 @@
                                 <td>{{$announcement->title}}</td>
                             </tr>
                             <tr>
+                                <th>Photo</th>
+                                <td>
+                                    <img src="{{$announcement->media_url}}" alt="" class="img-thubmnail w-50">
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Tags</th>
                                 <td>
                                     @if (count($announcement->tags) > 0)
@@ -33,12 +39,7 @@
                                 <th>Description</th>
                                 <td>{{$announcement->descript}}</td>
                             </tr>
-                            <tr>
-                                <th>Photo</th>
-                                <td>
-                                    <img src="{{$announcement->media_url}}" alt="" class="img-thubmnail w-50">
-                                </td>
-                            </tr>
+
                         </table>
                     @else
                         No data found

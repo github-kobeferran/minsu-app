@@ -15,8 +15,8 @@
                     @isset($job)
                         <table class="table table-bordered">
                             <tr>
-                                <th>Title</th>
-                                <td>{{$job->title}}</td>
+                                <th>Company Name</th>
+                                <td>{{$job->company}}</td>
                             </tr>
                             <tr>
                                 <th>Tags</th>
@@ -29,15 +29,33 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Description</th>
-                                <td>{{$job->descript}}</td>
-                            </tr>
-                            <tr>
                                 <th>Photo</th>
                                 <td>
                                     <img src="{{$job->media_url}}" alt="" class="img-thubmnail w-50">
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Job Title</th>
+                                <td>{{$job->title}}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{$job->descript}}</td>
+                            </tr>
+                            <tr>
+                                <th>Job Location</th>
+                                <td>{{$job->location}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{$job->email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Website/Page</th>
+                                <td>{{$job->website}}</td>
+                            </tr>
+                    
+
                         </table>
                         <div class="mb-4">
                             <a class="btn btn-primary" href="{{ route('jobs.apply', $job->id)}}">Apply</a>
