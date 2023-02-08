@@ -13,7 +13,7 @@ class StoreAnnouncementRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('store announcement');
     }
 
     /**

@@ -21,6 +21,14 @@ class Announcement extends Model  implements HasMedia
         'descript',
     ];
 
+    protected $casts = [
+        'tags' => 'array',
+    ];
+
+    protected $appends = [
+        'created_at_formatted',
+        'media_url',
+    ];
 
 
     public function registerMediaConversions(Media $media = null): void
@@ -29,5 +37,21 @@ class Announcement extends Model  implements HasMedia
             ->addMediaConversion('preview')
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
+    }
+
+    public function getCreatedAtFormattedAttribute()
+    {
+        return $this->created_at->format('M d, Y');
+    }
+
+    public function getMediaUrlAttribute()
+    {
+        $media = $this->getFirstMedia('photos');
+
+        if ($media) {
+            return $media->getUrl();
+        }
+
+        return null;
     }
 }

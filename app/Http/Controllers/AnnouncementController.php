@@ -17,8 +17,8 @@ class AnnouncementController extends Controller
     public function index()
     {
         abort_if(!auth()->user()->can('access announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        $announcement = Announcement::paginate(10);
-        return view('announcement.index', compact(['announcement']));
+        $announcements = Announcement::paginate(10);
+        return view('announcement.index', compact(['announcements']));
     }
 
     /**
@@ -40,17 +40,18 @@ class AnnouncementController extends Controller
      */
     public function store(StoreAnnouncementRequest $request)
     {
-       // abort_if(!auth()->user()->can('store announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        abort_if(!auth()->user()->can('store announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+
         $announcement = Announcement::create($request->validated());
         if ($request->has('photo')) {
             $announcement->addMediaFromRequest('photo')->toMediaCollection('photos');
         }
-        $announcement->addMediaFromRequest::paginate(10);
+        $announcements = Announcement::paginate(10);
 
         session()->flash('success', 'Record added');
 
-        return redirect()->route('announcement.index')->with([
-            'announcement' => $announcement,
+        return redirect()->route('announcements.index')->with([
+            'announcements' => $announcements,
         ]);
 
     }
@@ -98,5 +99,25 @@ class AnnouncementController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        abort_if(!auth()->user()->can('destroy announcement'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+
+        Announcement::destroy($id);
+        $announcements = Announcement::paginate(10);
+
+        session()->flash('primary', 'Record deleted');
+
+        return redirect()->route('announcements.index')->with([
+            'announcements' => $announcements,
+        ]);
     }
 }
