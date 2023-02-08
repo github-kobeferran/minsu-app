@@ -108,7 +108,7 @@ class JobController extends Controller
         return redirect()->route('jobs.index')->with([
             'jobs' => $jobs,
         ]);
-
+        
     }
 
     /**
