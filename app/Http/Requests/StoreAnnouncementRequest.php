@@ -24,7 +24,12 @@ class StoreAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'descript' => 'required',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

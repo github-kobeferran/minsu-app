@@ -5,6 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <a href="{{ route('jobs.create') }}">Create Job</a>
+            <a href="{{ route('announcements.create') }}">Create Announcement</a>
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
