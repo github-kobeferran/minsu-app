@@ -5,9 +5,25 @@
     <div class="row justify-content-center">
         <div class="col-md-8 ">
 
-            @isset($errors)
-                {{$errors}}
-            @endisset
+          
+            @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               {{ session()->get('success') }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+       @endif
+       @if (session()->has('danger'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+               {{ session()->get('danger') }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+       @endif
+       @if (session()->has('primary'))
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                   {{ session()->get('primary') }}
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+       @endif
            <form action="{{route('apply.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{auth()->user()->id}}">

@@ -8,9 +8,12 @@
             <div class="row">
                 <div class="col">
                     <div class="d-flex justify-content-end">
+                        @if (auth()->user()->hasRole('alumni'))
+                        @else
                         <div class="mb-4">
                             <a class="btn btn-primary" href="{{route('jobs.create')}}">Create a Job</a>
                         </div>
+                        @endif
                     </div>
 
 
@@ -42,6 +45,7 @@
                                 @endif
                                 <th>Photo</th>
                                 <th>Name</th>
+                       
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -63,9 +67,13 @@
                                     </td>
                                     <td>{{$job->title}}</td>
                                     <td class="d-flex justify-content-between">
+                                        @if (auth()->user()->hasRole('alumni'))
+                                        <a href="{{route('jobs.show', $job->id)}}" class="btn btn-light bordered">View</a>
+                                        @else
                                         <a href="{{route('jobs.show', $job->id)}}" class="btn btn-light bordered">View</a>
                                         <a href="{{route('jobs.edit', $job->id)}}" class="btn btn-primary">Edit</a>
                                         <a href="{{route('jobs.delete', $job->id)}}" class="btn btn-danger">Delete</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
