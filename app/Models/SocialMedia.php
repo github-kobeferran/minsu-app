@@ -17,6 +17,10 @@ class SocialMedia extends Model implements HasMedia
         'user_id',
         'post',
     ];
+    protected $appends = [
+        'created_at_formatted',
+        'media_url',
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -38,7 +42,7 @@ class SocialMedia extends Model implements HasMedia
         if ($media) {
             return $media->getUrl();
         }
-
         return null;
+
     }
 }

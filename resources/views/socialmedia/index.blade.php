@@ -25,11 +25,14 @@
     <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
 
 </div>
+
+@foreach ($socialmedias as $socialmedia )
 <div class="card mt-5" style="width: 22rem; margin: 0 auto;">
-    <img src="your-image-src.jpg" class="card-img-top" alt="Card image">
+    <img src="{{$socialmedia->media_url}}" class="card-img-top" alt="">
     <div class="card-body">
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <p class="card-text">{{$socialmedia->post}}</p>
       <a href="#" class="btn btn-primary">Like</a>
     </div>
   </div>
+  @endforeach
 @endsection
