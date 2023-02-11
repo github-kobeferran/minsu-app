@@ -45,10 +45,10 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Tags</label>
                     <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" multiple aria-label="multiple select example">
-                        <option selected>Open this select menu</option>
+                        <option selected>Need Many Employee</option>
                         <option value="urgent">Urgent</option>
-                        <option value="example1">Example1</option>
-                        <option value="example12">Example12</option>
+                        <option value="vacancy">Vacancy</option>
+                        <option value="high priority">High Priority</option>
                     </select>
                     @error('tags')
                         <span class="invalid-feedback" role="alert">

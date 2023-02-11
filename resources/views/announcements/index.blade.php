@@ -8,9 +8,12 @@
             <div class="row">
                 <div class="col">
                     <div class="d-flex justify-content-end">
+                        @if (auth()->user()->hasRole('alumni'))
+                        @else
                         <div class="mb-4">
                             <a class="btn btn-primary" href="{{route('announcements.create')}}">Create a announcement</a>
                         </div>
+                        @endif
                     </div>
 
                     @if (session()->has('success'))
@@ -56,10 +59,15 @@
 
                                     </td>
                                     <td>{{$announcement->title}}</td>
+                                    
                                     <td class="d-flex justify-content-center align-content-between ">
+                                        @if (auth()->user()->hasRole('alumni'))
+                                        <a href="{{route('announcements.show', $announcement->id)}}" class="btn btn-light border">View</a>
+                                        @else
                                         <a href="{{route('announcements.show', $announcement->id)}}" class="btn btn-light border">View</a>
                                         <a href="{{route('announcements.edit', $announcement->id)}}" class="btn btn-primary">Edit</a>
                                         <a href="{{route('announcements.delete', $announcement->id)}}" class="btn btn-danger">Delete</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

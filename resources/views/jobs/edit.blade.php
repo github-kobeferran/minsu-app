@@ -47,10 +47,10 @@
                     <label for="exampleFormControlInput1" class="form-label">Tags</label>
                     <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" multiple aria-label="multiple select example">
 
-                        <option @if(is_null($job['tags'])) selected @endif>Open this select menu</option>
+                        <option @if(is_null($job['tags'])) selected @endif>Need Many Employee</option>
                         <option @if(in_array("urgent", $job['tags'])) selected @endif value="urgent">Urgent</option>
-                        <option @if(in_array("example1", $job['tags'])) selected @endif value="example1">Example1</option>
-                        <option @if(in_array("example12", $job['tags'])) selected @endif value="example12">Example12</option>
+                        <option @if(in_array("vacancy", $job['tags'])) selected @endif value="vacancy">Vacancy</option>
+                        <option @if(in_array("high priority", $job['tags'])) selected @endif value="high priority">High Priority</option>
                     </select>
                     @error('tags')
                         <span class="invalid-feedback" role="alert">

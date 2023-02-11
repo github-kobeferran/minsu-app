@@ -13,7 +13,7 @@ class StoreSocialMediaRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('store socialmedia');
+        return auth()->user()->can('store socialmedia'); 
     }
 
     /**

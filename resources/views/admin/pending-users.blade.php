@@ -41,7 +41,7 @@
                                     <td class="d-flex justify-content-between">
 
                                         <a href="{{route('admin.approve-user', $user->id)}}" class="btn btn-primary">Approve</a>
-                                        <a href="{{route('admin.approve-user', $user->id)}}" class="btn btn-danger">Decline</a>
+                                        <a href="{{route('admin.decline-user', $user->id)}}" class="btn btn-danger">Decline</a>
                                     </td>
                                 </tr>
                             @endforeach

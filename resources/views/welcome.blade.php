@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+    body{
+      background-image: url('http://minsu.edu.ph/template/images/slides/slides_2.jpg')
+    }
+    </style>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,11 +17,12 @@
     />
     <title>Welcome</title>
   </head>
-  <body>
-    <div class="container my-5 text-center">
+<body>
+
+   <div class="container my-5 text-center">
       <img src="http://minsu.edu.ph/template/images/logo.png" alt="Logo" />
-      <h3 class="my-3">Welcome to Mindoro State University</h3>
-      <h1 class="my-3">MinSU-AlumnConnect</h1>
+      <h3 class="my-3 text-white">Welcome to Mindoro State University</h3>
+      <h1 class="my-3 text-white">MinSU-AlumConnect</h1>
 
       <div class="my-3">
          @if (Route::has('login'))

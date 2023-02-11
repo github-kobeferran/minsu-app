@@ -103,7 +103,21 @@ class JobController extends Controller
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
+        abort_if(!auth()->user()->can('update job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        $job->update($request->validated());
 
+        if ($request->has('photo')) {
+            $job->clearMediaCollection('photos');
+            $job->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+
+        session()->flash('success', 'Record updated');
+
+        $jobs = Job::paginate(10);
+
+        return redirect()->route('jobs.index')->with([
+            'jobs' => $jobs,
+        ]);
 
     }
 

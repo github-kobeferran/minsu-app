@@ -21,10 +21,10 @@
                     <label for="exampleFormControlInput1" class="form-label">Tags</label>
                     <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" multiple aria-label="multiple select example">
 
-                        <option @if(is_null($announcement['tags'])) selected @endif>Open this select menu</option>
-                        <option @if(in_array("urgent", $announcement['tags'])) selected @endif value="urgent">Urgent</option>
-                        <option @if(in_array("example1", $announcement['tags'])) selected @endif value="example1">Example1</option>
-                        <option @if(in_array("example12", $announcement['tags'])) selected @endif value="example12">Example12</option>
+                        <option @if(is_null($announcement['tags'])) selected @endif>1st Year Students</option>
+                        <option @if(in_array("2nd year students", $announcement['tags'])) selected @endif value="2nd year students">2nd Year Students</option>
+                        <option @if(in_array("3rd year students", $announcement['tags'])) selected @endif value="3rd year students">3rd Year Students</option>
+                        <option @if(in_array("4th year students", $announcement['tags'])) selected @endif value="4th year students">4th Year Students</option>
                     </select>
                     @error('tags')
                         <span class="invalid-feedback" role="alert">

@@ -1,9 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron jumbotron-fluid bg-success text-white">
+<style>
+    body{
+      background-image: url('http://minsu.edu.ph/template/images/slides/slides_2.jpg')
+    }
+    </style>
+<div class="jumbotron jumbotron-fluid text-white">
     <div class="container">
-      <h1 class="display-4 text-center">Welcome to MinSU-AlumnConnect</h1>
+      <h1 class="display-4 text-center">Welcome to MinSU-AlumConnect</h1>
       <p class="lead text-center">Discover the latest job opportunities and announcements.</p>
       <div class="d-flex justify-content-center mt-4">
         @if (!auth()->user()->approved)
