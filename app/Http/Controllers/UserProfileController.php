@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use App\Models\Apply;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Requests\StoreJobApply;
 
-class ApplyController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,22 +32,9 @@ class ApplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreJobApply $request)
+    public function store(Request $request)
     {
-        abort_if(!auth()->user()->can('apply job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        $apply = Apply::create($request->validated());
-
-        if ($request->has('resume')) {
-            $apply->addMediaFromRequest('resume')->toMediaCollection('resume');
-        }
-
-        $jobs = Job::paginate(10);
-
-        session()->flash('success', 'Application Success');
-
-        return redirect()->route('jobs.index')->with([
-            'jobs' => $jobs,
-        ]);
+        //
     }
 
     /**

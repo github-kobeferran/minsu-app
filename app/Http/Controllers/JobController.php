@@ -21,7 +21,9 @@ class JobController extends Controller
         abort_if(!auth()->user()->can('access job'), Response::HTTP_FORBIDDEN, 'Unauthorized');
         $jobs = Job::when(auth()->user()->hasRole('employer'), function ($query) {
             $query->where('user_id', auth()->user()->id);
-        })->paginate(10);
+        })
+        ->orderByDesc('created_at')
+        ->paginate(10);
         return view('jobs.index', compact(['jobs']));
     }
 

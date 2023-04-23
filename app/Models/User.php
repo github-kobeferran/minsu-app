@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'email',
         'password',
         'home_address',
-        'word_address',
+        'work_address',
         'age',
         'id_number',
 
@@ -57,6 +57,14 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'media_url',
     ];
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
+
     public function getCreatedAtFormattedAttribute()
     {
         return $this->created_at->format('M d, Y');
@@ -71,14 +79,5 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         }
 
         return null;
-    }
-
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued();
     }
 }

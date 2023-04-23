@@ -46,7 +46,6 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Tags</label>
                     <select name="tags[]" class="form-control @error('tags') is-invalid @enderror" multiple aria-label="multiple select example">
-
                         <option @if(is_null($job['tags'])) selected @endif>Need Many Employee</option>
                         <option @if(in_array("urgent", $job['tags'])) selected @endif value="urgent">Urgent</option>
                         <option @if(in_array("vacancy", $job['tags'])) selected @endif value="vacancy">Vacancy</option>

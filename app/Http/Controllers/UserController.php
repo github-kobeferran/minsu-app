@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -52,19 +53,30 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
-
-    public function edit(User $user)
-    {
-        abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        return view('userprofile.edit', compact(['user']));
-    }
-
     public function index()
     {
         abort_if(!auth()->user()->can('show user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
-        return view('userprofile.index');
+        $users = User::all();
+        return view('userprofile.index', compact('users'));
     }
-    /**
-     * FOR EMPLOYER
-     */
+    
+    public function edit(User $user)
+    {
+        abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+        return view('userprofile.edit', compact('user'));
+    }
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+    
+        auth()->user()->update($request->validated());
+    
+        if ($request->has('photo')) {
+            $user->clearMediaCollection('photos');
+            $user->addMediaFromRequest('photo')->toMediaCollection('photos');
+        }
+            
+        return redirect()->route('userprofile.index')->with('success', 'User profile updated successfully');
+    }
+    
 }
