@@ -49,7 +49,7 @@ class AnnouncementController extends Controller
         }
         $announcements = Announcement::paginate(10);
 
-        session()->flash('success', 'Record added');
+        session()->flash('success', 'Announcement has been posted');
 
         return redirect()->route('announcements.index')->with([
             'announcements' => $announcements,
@@ -102,7 +102,7 @@ class AnnouncementController extends Controller
             $announcement->addMediaFromRequest('photo')->toMediaCollection('photos');
         }
 
-        session()->flash('success', 'Record updated');
+        session()->flash('success', 'Announcement has been updated');
 
         $announcements = Announcement::paginate(10);
 
@@ -136,7 +136,7 @@ class AnnouncementController extends Controller
         Announcement::destroy($id);
         $announcements = Announcement::paginate(10);
 
-        session()->flash('primary', 'Record deleted');
+        session()->flash('primary', 'Announcement has been deleted');
 
         return redirect()->route('announcements.index')->with([
             'announcements' => $announcements,

@@ -60,8 +60,14 @@
                                 <input type="number" name="age" id="age" value="{{ Auth::user()->age }}" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="id_number">ID Number</label>
-                                <input type="text" name="id_number" id="id_number" value="{{ Auth::user()->id_number }}" class="form-control">
+                                <label for="department">Department</label>
+                                <select name="department" id="department" class="form-control">
+                                    <option value="">Select Department</option>
+                                    <option value="sales" {{ Auth::user()->department === 'sales' ? 'selected' : '' }}>Sales</option>
+                                    <option value="marketing" {{ Auth::user()->department === 'marketing' ? 'selected' : '' }}>Marketing</option>
+                                    <option value="finance" {{ Auth::user()->department === 'finance' ? 'selected' : '' }}>Finance</option>
+                                    <option value="human resources" {{ Auth::user()->department === 'human resources' ? 'selected' : '' }}>Human Resources</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>

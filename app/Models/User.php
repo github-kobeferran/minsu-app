@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         'home_address',
         'work_address',
         'age',
-        'id_number',
+        'department',
 
     ];
 

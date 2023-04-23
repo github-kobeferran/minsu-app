@@ -48,98 +48,129 @@
                         @if (auth()->user()->hasRole('alumni'))
                         @else
                         <div class="mb-4">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAnnouncementModal">
-                                Create an Announcement
-                            </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#announcementModal">
+                                Create New Announcement
+                              </button>
                         </div>                        
                         @endif
                     </div>
-                    
-                    <div class="modal fade" id="createAnnouncementModal" tabindex="-1" aria-labelledby="createAnnouncementModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="createAnnouncementModalLabel">Create Announcement</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{route('announcements.store')}}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="title" class="form-label">Title</label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
-                                            @error('title')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                    
-                                        <div class="mb-3">
-                                            <label for="tags" class="form-label">Tags</label>
-                                            <select name="tags[]" class="form-control @error('tags')is-invalid @enderror" multiple aria-label="multiple select example" id="tags">
-                                                <option selected>1st Year Students</option>
-                                                <option value="2nd year students">2nd Year Students</option>
-                                                <option value="3rd year students">3rd Year Students</option>
-                                                <option value="4th year students">4th Year Students</option>
-                                            </select>
-                                            @error('tags')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                    
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">Announcement Description</label>
-                                            <textarea type="text" class="form-control" id="description" name="description" placeholder="Announcement Description"></textarea>
-                                            @error('description')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                    
-                                        <div class="mb-3">
-                                            <label for="photo" class="form-label">Photo</label>
-                                            <input name="photo" type="file" class="form-control" id="photo">
-                                            @error('photo')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                    
-                                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
-                    
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Create Announcement</button>
-                                        </div>
-                                    </form>
-                                </div>
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="announcementModalLabel">Create New Announcement</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+                            <div class="modal-body">
+                              <form action="{{route('announcements.store')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                  <label for="title" class="form-label">Title</label>
+                                  <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                                  @error('title')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                                </div>
+                      
+                                <div class="mb-3">
+                                    <label for="tags" class="form-label">Tags</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1st Year Students" id="tag1" name="tags[]">
+                                        <label class="form-check-label" for="tag1">
+                                            1st Year Students
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="2nd Year Students" id="tag2" name="tags[]">
+                                        <label class="form-check-label" for="tag2">
+                                            2nd Year Students
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="3rd Year Students" id="tag3" name="tags[]">
+                                        <label class="form-check-label" for="tag3">
+                                            3rd Year Students
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="4th Year Students" id="tag4" name="tags[]">
+                                        <label class="form-check-label" for="tag4">
+                                            4th Year Students
+                                        </label>
+                                    </div>
+                                    @error('tags')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                
+                      
+                                <div class="mb-3">
+                                  <label for="descript" class="form-label">Announcement Description</label>
+                                  <textarea class="form-control" id="descript" name="descript" placeholder="Job Description"></textarea>
+                                  @error('descript')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                                </div>
+                      
+                                <div class="mb-3">
+                                  <label for="photo" class="form-label">Photo</label>
+                                  <input name="photo"  type="file"  id="photo">
+                                  @error('photo')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                  @enderror
+                                </div>
+                      
+                                <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                      
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="submit" class="btn btn-primary">Create Announcement</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
+                      
 
-                    @if (session()->has('success'))
-                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session()->get('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if (session()->has('danger'))
-                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session()->get('danger') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if (session()->has('primary'))
-                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                {{ session()->get('primary') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                      @if (session()->has('success'))
+                      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                      <script>
+                          Swal.fire({
+                              icon: 'success',
+                              text: '{{ session()->get('success') }}'
+                          });
+                      </script>
+                  @endif
+                  
+                  @if (session()->has('danger'))
+                      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                      <script>
+                          Swal.fire({
+                              icon: 'error',
+                              text: '{{ session()->get('danger') }}'
+                          });
+                      </script>
+                  @endif
+                  
+                  @if (session()->has('primary'))
+                      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                      <script>
+                          Swal.fire({
+                              icon: 'info',
+                              text: '{{ session()->get('primary') }}'
+                          });
+                      </script>
+                  @endif
+                  
 
                     @isset($announcements)
                     <div>
@@ -166,7 +197,9 @@
                                                 @else
                                                     <a href="{{route('announcements.show', $announcement->id)}}" class="btn btn-light border">View</a>
                                                     <a href="{{route('announcements.edit', $announcement->id)}}" class="btn btn-primary">Edit</a>
-                                                    <a href="{{route('announcements.delete', $announcement->id)}}" class="btn btn-danger">Delete</a>
+                                                    <a href="#" class="btn btn-danger" onclick="deleteAnnouncement({{$announcement->id}})">Delete</a>
+
+
                                                 @endif
                                             </div>
                                         </div>
@@ -191,15 +224,35 @@
 @endsection
 
 <script>
-    var myModal = new bootstrap.Modal(document.getElementById('createAnnouncementModal'), {
+    var createAnnouncementModal = new bootstrap.Modal(document.getElementById('createAnnouncementModal'), {
         keyboard: false
-    })
+    });
 
-    @if (count($errors) > 0)
-        myModal.show();
+    @if($errors->any())
+        createAnnouncementModal.show();
     @endif
 
     function handleModal() {
-        myModal.show();
+        createAnnouncementModal.show();
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    function deleteAnnouncement(announcementId) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{route('announcements.delete', '')}}/" + announcementId;
+        }
+      });
+    }
+    </script>
+    

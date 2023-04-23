@@ -65,6 +65,33 @@ class UserController extends Controller
         abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
         return view('userprofile.edit', compact('user'));
     }
+
+    public function userIndex(Request $request)
+    {
+        abort_if(!auth()->user()->can('view user'), Response::HTTP_FORBIDDEN, 'Unauthorized');
+    
+        $keyword = $request->input('keyword');
+        $department = $request->input('department');
+    
+        $users = User::when($keyword, function ($query, $keyword) {
+                    $query->where('name', 'LIKE', "%{$keyword}%")
+                        ->orWhere('work_address', 'LIKE', "%{$keyword}%")
+                        ->orWhere('department', 'LIKE', "%{$keyword}%");
+                })
+                ->when($department, function ($query, $department) {
+                    $query->where('department', $department);
+                })
+                ->paginate(15);
+    
+        return view('userprofile.view', ['users' => $users, 'keyword' => $keyword]);
+    }
+    public function show($id)
+{
+    $user = User::findOrFail($id);
+    return view('user.profile', compact('user'));
+}
+
+
     public function update(UpdateUserRequest $request, User $user)
     {
         abort_if(!auth()->user()->can('update user'), Response::HTTP_FORBIDDEN, 'Unauthorized');

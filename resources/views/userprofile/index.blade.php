@@ -15,7 +15,7 @@
                             <p style="font-family: Arial, sans-serif;"><i class="bi bi-geo-alt-fill"></i> Lives in {{ Auth::user()->home_address }}</p>
                             <p style="font-family: Arial, sans-serif;"><i class="bi bi-building"></i> Works at {{ Auth::user()->work_address }}</p>
                             <p style="font-family: Arial, sans-serif;"><i class="bi bi-calendar"></i> Age: {{ Auth::user()->age }}</p>
-                            <p style="font-family:Arial, sans-serif;"><i class="bi bi-person"></i> ID number: {{ Auth::user()->id_number }}</p>
+                            <p style="font-family:Arial, sans-serif;"><i class="bi bi-person"></i> Department: {{ Auth::user()->department }}</p>
                             <form action="{{ route('userprofile.edit', Auth::user()->id)}}" method="get">
                                 <button type="submit" class="btn btn-primary">Edit Profile</button>
                             </form>

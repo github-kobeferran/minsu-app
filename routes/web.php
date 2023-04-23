@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\ApplyController;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\SocialMediaController;
-use App\Http\Controllers\UserController;
 use App\Models\SocialMedia;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApplyController;
+use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\AnnouncementController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,10 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::resource('/socialmedia', SocialMediaController::class);
 
     Route::resource('/userprofile', UserController::class);
+    Route::get('userprofile.view', [UserController::class, 'userIndex'])->name('userprofile.userIndex');
+    Route::get('/users', [UserController::class, 'userIndex'])->name('userIndex');
+    Route::get('/user/profile/{id}', [UserController::class, 'show'])->name('user.profile');
+
 
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function () {
         Route::get('pending-users', [UserController::class, 'getPendingUsers'])->name('pending-users');
